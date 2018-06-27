@@ -17,14 +17,18 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
     private SeekBar seekBar;
     private TextView textView;
-    private MediaPlayer player;
+
     private Button testButton;
     private static final String TAG = "MainActivity";
+    private static String testPath = "/Music/Non-Gachi/-+.mp3";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +51,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser) {
-                textView.setText(Integer.toString(seekBar.getProgress()));
+                float percentProgress = (float) seekBar.getProgress() / 100;
+                //float seekLocation = (float) player.getDuration() * percentProgress;
+                //textView.setText(Float.toString(seekLocation)+" / "+Integer.toString(player.getDuration()));
+
+                //player.seekTo(Math.round(seekLocation));
 
             }
         });
@@ -65,33 +73,25 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
         testButton = findViewById(R.id.testButton);
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                player = new MediaPlayer();
-                try {
-                    player.setDataSource(android.os.Environment.getExternalStorageDirectory() + "/Music/Non-Gachi/-+.mp3");
-                    player.prepareAsync();
-                    player.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
-                        @Override
-                        public void onPrepared(MediaPlayer playerM){
-                            playerM.start();
-                        }
-                    });
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                if(player.isPlaying()) {
-                    textView.setText("aaaaaa");
-                }
+               // startPlayback(testPath, textView);
             }
         });
 
 
 
 
+
+    }
+
+
+    @Override
+    public void onBackPressed() {
 
     }
 
