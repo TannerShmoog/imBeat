@@ -15,10 +15,14 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.IBinder;
 import android.provider.MediaStore;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
@@ -30,13 +34,14 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private SeekBar seekBar;
     private TextView textView;
     private AbstractMediaPlayerService player;
     private Boolean serviceBound = false;
     private Button testButton;
+    NavigationView navigationView;
     private static final String TAG = "MainActivity";
     private static String testPath = "/Music/Non-Gachi/-+.mp3";
     //TODO: REMOVE
@@ -49,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         seekBar = findViewById(R.id.seekBar);
         textView = findViewById(R.id.textView2);
+        navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
         seekBar.setPadding(0,0,0,0);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
@@ -170,6 +177,26 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         cursor.close();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        //Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_directories) {
+            Intent intent = new Intent(this, DirectoriesActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_playlists) {
+
+        } else if (id == R.id.nav_history) {
+
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+
+        return true;
     }
 
     //Taken from https://mobikul.com/getting-read-write-permission-external-storage-android/

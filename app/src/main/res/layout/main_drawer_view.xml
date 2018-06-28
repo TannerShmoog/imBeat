@@ -11,13 +11,13 @@
             android:icon="@drawable/ic_directories"
             android:title="Directories"/>
         <item
-            android:id="@+id/nev_history"
-            android:icon="@drawable/ic_history"
-            android:title="History"/>
-        <item
             android:id="@+id/nav_playlists"
             android:icon="@drawable/ic_playlists"
             android:title="Playlists"/>
+        <item
+            android:id="@+id/nav_history"
+            android:icon="@drawable/ic_history"
+            android:title="History"/>
     </group>
 
     <group android:checkableBehavior="single"
