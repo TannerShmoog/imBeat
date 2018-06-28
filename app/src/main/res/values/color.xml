@@ -6,9 +6,9 @@
     <color name="steel_blue">#4682b4</color>
     <color name="dark_grey">#36393E</color>
     <color name="light_grey">#4c4d4f</color>
+    <color name="lightest_grey">#97a0af</color>
     <color name="darkest_grey">#202225</color>
     <color name="white">#ffffff</color>
-
 
     <color name="seek_bar_progress">#36393E</color>
     <color name="seek_bar_background">#4c4d4f</color>
