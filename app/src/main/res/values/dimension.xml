@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="seek_bar_thickness">160dp</dimen>
-    <dimen name="seek_bar_thumb_size">160dp</dimen>
+    <dimen name="seek_bar_thickness">60dp</dimen>
+    <dimen name="seek_bar_thumb_size">60dp</dimen>
 </resources>
