@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="30dp">
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/directory_list_view_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="16sp"
+        android:textColor="@color/lightest_grey"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        app:layout_constraintRight_toLeftOf="@+id/delete_directory_button">
+    </TextView>
+    <Button
+        android:id="@+id/delete_directory_button"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@drawable/ic_delete"
+        android:gravity="end"
+        app:layout_constraintRight_toRightOf="parent"/>
+</android.support.constraint.ConstraintLayout>

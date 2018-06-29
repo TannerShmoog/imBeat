@@ -23,7 +23,7 @@ public class AbstractMediaPlayerService extends Service implements
     MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnErrorListener,
     MediaPlayer.OnSeekCompleteListener, MediaPlayer.OnInfoListener {
 
-    //TODO: Implement audio focus
+    //TODO: Implement audio focus, check that files in directory are actually playable
     private int playPosition = 0;
     private final IBinder iBinder = new LocalBinder();
     private MediaPlayer player;

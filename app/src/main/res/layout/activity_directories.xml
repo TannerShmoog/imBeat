@@ -11,7 +11,7 @@
         android:id="@+id/add_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/lightest_grey"
+        android:background="@color/light_grey"
         android:drawableLeft="@drawable/ic_add"
         android:text="Add New Directories"
         android:textAlignment="viewStart"
@@ -21,6 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
+        android:id="@+id/directory_list_view"
         android:layout_width="395dp"
         android:layout_height="547dp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -34,6 +34,10 @@ public abstract class AbstractMediaPlayerActivity extends AppCompatActivity{
         directoryList.add(directory);
     }
 
+    public void deleteDirectoryList(int position) {
+        directoryList.remove(position);
+    }
+
     //List of manually Queued songs
     public static ArrayList<AudioFile> getQueueList() {
         return queueList;
