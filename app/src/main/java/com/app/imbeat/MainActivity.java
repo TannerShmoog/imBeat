@@ -36,7 +36,6 @@ import java.util.TimerTask;
 
 public class MainActivity extends AbstractMediaPlayerActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    //TODO: Load directories externally
     private SeekBar seekBar;
     private TextView textView;
     private AbstractMediaPlayerService player;
@@ -45,8 +44,7 @@ public class MainActivity extends AbstractMediaPlayerActivity implements Navigat
     NavigationView navigationView;
     private static final String TAG = "MainActivity";
     private static String testPath = "/Music/Non-Gachi/-+.mp3";
-    //TODO: REMOVE
-    private ArrayList<AudioFile> audioList;
+
 
 
     @Override
@@ -60,7 +58,6 @@ public class MainActivity extends AbstractMediaPlayerActivity implements Navigat
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         seekBar.setPadding(0,0,0,0);
-
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
@@ -75,10 +72,8 @@ public class MainActivity extends AbstractMediaPlayerActivity implements Navigat
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser) {
                 float percentProgress = (float) seekBar.getProgress() / 100;
-                //float seekLocation = (float) player.getDuration() * percentProgress;
-                //textView.setText(Float.toString(seekLocation)+" / "+Integer.toString(player.getDuration()));
-
-                //player.seekTo(Math.round(seekLocation));
+                float seekLocation = (float) player.getDuration() * percentProgress;
+                player.seekTo(Math.round(seekLocation));
 
             }
         });
@@ -102,12 +97,17 @@ public class MainActivity extends AbstractMediaPlayerActivity implements Navigat
                playAudio("a");
             }
         });
+
     }
 
 
     @Override
     public void onBackPressed() {
-
+        saveVars();
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        //startMain.addCategory(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
     }
 
     private ServiceConnection serviceConnection = new ServiceConnection() {
@@ -156,31 +156,10 @@ public class MainActivity extends AbstractMediaPlayerActivity implements Navigat
             //service is active
             player.stopSelf();
         }
+        saveVars();
     }
 
-    private void loadAudio() {
-        ContentResolver contentResolver = getContentResolver();
 
-        Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-        String selection = MediaStore.Audio.Media.IS_MUSIC + "!= 0";
-        String sortOrder = MediaStore.Audio.Media.TITLE + " ASC";
-        Cursor cursor = contentResolver.query(uri, null, selection, null, sortOrder);
-
-        if (cursor != null && cursor.getCount() > 0) {
-            audioList = new ArrayList<>();
-            while (cursor.moveToNext()) {
-                String data = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA));
-                //TODO: Change to file name and not title
-                String fileName = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
-                String artistName = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
-                String duration = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION));
-
-                // Save to audioList
-                audioList.add(new AudioFile(data, fileName, artistName, duration));
-            }
-        }
-        cursor.close();
-    }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

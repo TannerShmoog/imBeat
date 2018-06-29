@@ -21,5 +21,7 @@
         android:layout_height="32dp"
         android:background="@drawable/ic_delete"
         android:gravity="end"
+        android:focusable="true"
+        android:onClick="onClickDeleteButton"
         app:layout_constraintRight_toRightOf="parent"/>
 </android.support.constraint.ConstraintLayout>

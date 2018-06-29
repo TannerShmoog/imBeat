@@ -123,6 +123,24 @@ public class AbstractMediaPlayerService extends Service implements
         }
     }
 
+    public int getCurrentPosition() {
+        return player.getCurrentPosition();
+    }
+
+    public int getDuration() {
+        return player.getDuration();
+    }
+
+    public void seekTo(int playPosition) {
+        player.pause();
+        player.seekTo(playPosition);
+        player.start();
+    }
+
+    public boolean isPlaying() {
+        return player.isPlaying();
+    }
+
     private void resumePlayback() {
         player.seekTo(playPosition);
         player.start();

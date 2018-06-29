@@ -25,7 +25,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-
+//From apache pig project, used to save and restore objects from external storage
 public class ObjectSerializer {
 
 

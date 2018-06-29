@@ -1,6 +1,10 @@
 package com.app.imbeat;
 
+import android.content.ContentResolver;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -12,14 +16,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+
+//Abstract class to store global information about Now playing song, queue, history, directories,
+//playlists, and the concatenated list of shuffled+queued songs
 public abstract class AbstractMediaPlayerActivity extends AppCompatActivity{
 
     private static ArrayList<Directory> directoryList = new ArrayList<Directory>();
     private static ArrayList<AudioFile> queueList = new ArrayList<>();
     private static ArrayList<AudioFile> historyList = new ArrayList<>();
     private static ArrayList<AudioFile> effectiveQueueList;
-
-
+    private AudioFile nowPlaying;
+    private AudioFile upNext;
+    private AudioFile previous;
 
     //List of Directories
     public static ArrayList<Directory> getDirectoryList() {
@@ -30,10 +38,12 @@ public abstract class AbstractMediaPlayerActivity extends AppCompatActivity{
         AbstractMediaPlayerActivity.directoryList = directoryList;
     }
 
+    //Add a new directory
     public void addDirectoryList(Directory directory) {
         directoryList.add(directory);
     }
 
+    //Delete the directory at a specified position
     public void deleteDirectoryList(int position) {
         directoryList.remove(position);
     }
@@ -121,7 +131,29 @@ public abstract class AbstractMediaPlayerActivity extends AppCompatActivity{
 
         Log.i("aaaaaaaaaaaaa", Integer.toString(directoryList.size()));
         Log.i("bbbbbbbbbbbbb", directoryList.toString());
+    }
 
+    //Load audio files from all specified directories and playlists, seeded shuffle them and set the global queue
+    public void loadAudio() {
+        ContentResolver contentResolver = getContentResolver();
+
+        Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+        String selection = MediaStore.Audio.Media.IS_MUSIC + "!= 0";
+        String sortOrder = MediaStore.Audio.Media.TITLE + " ASC";
+        Cursor cursor = contentResolver.query(uri, null, selection, null, sortOrder);
+
+        if (cursor != null && cursor.getCount() > 0) {
+            effectiveQueueList = new ArrayList<>();
+            while (cursor.moveToNext()) {
+                String data = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA));
+                String fileName = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
+                String artistName = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
+                String duration = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION));
+                // Save to audioList
+                effectiveQueueList.add(new AudioFile(data, fileName, artistName, duration));
+            }
+        }
+        cursor.close();
     }
 
 }

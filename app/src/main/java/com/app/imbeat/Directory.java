@@ -9,6 +9,7 @@ public class Directory implements Serializable {
     private String readableName;
     private Boolean isEnabled;
 
+    //Stores one user specified storage directory to pull music files from
     public Directory(String uriPath, Boolean isEnabled) {
         this.uriPath = uriPath;
         String[] templist = uriPath.split("/");
