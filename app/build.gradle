@@ -16,15 +16,30 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'javax/servlet/resources/jsp_2_1.xsd'
+        exclude 'javax/servlet/jsp/resources/web-jsptaglibrary_2_1.xsd'
+        exclude 'javax/servlet/jsp/resources/web-jsptaglibrary_2_0.xsd'
+        exclude 'javax/servlet/jsp/resources/jspxml.xsd'
+        exclude 'javax/servlet/resources/jsp_2_0.xsd'
+        exclude 'javax/servlet/resources/web-app_2_4.xsd'
+        exclude 'javax/servlet/jsp/resources/web-jsptaglibrary_1_2.dtd'
+        exclude 'javax/servlet/resources/javaee_5.xsd'
+        exclude 'javax/servlet/resources/j2ee_web_services_client_1_1.xsd'
+        exclude 'javax/servlet/jsp/resources/web-jsptaglibrary_1_1.dtd'
+    }
+
+
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:28.0.0-alpha3'
     implementation 'com.android.support:design:28.0.0-alpha3'
+    implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-
 }
+

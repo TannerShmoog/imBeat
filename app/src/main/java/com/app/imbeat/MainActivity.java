@@ -34,8 +34,9 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AbstractMediaPlayerActivity implements NavigationView.OnNavigationItemSelectedListener{
 
+    //TODO: Load directories externally
     private SeekBar seekBar;
     private TextView textView;
     private AbstractMediaPlayerService player;
@@ -52,13 +53,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        loadVars();
+
         seekBar = findViewById(R.id.seekBar);
         textView = findViewById(R.id.textView2);
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         seekBar.setPadding(0,0,0,0);
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 // TODO Auto-generated method stub

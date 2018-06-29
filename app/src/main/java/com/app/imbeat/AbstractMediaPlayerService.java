@@ -24,12 +24,7 @@ public class AbstractMediaPlayerService extends Service implements
     MediaPlayer.OnSeekCompleteListener, MediaPlayer.OnInfoListener {
 
     //TODO: Implement audio focus
-    private static ArrayList<String> queueList = new ArrayList<String>();
-    private static ArrayList<String> randomList = new ArrayList<String>();
-    private static ArrayList<String> historyList = new ArrayList<String>();
-    private static ArrayList<String> effectiveQueueList = new ArrayList<String>();
     private int playPosition = 0;
-    private int a = 0;
     private final IBinder iBinder = new LocalBinder();
     private MediaPlayer player;
     private static String testPath = "/Music/Non-Gachi/-+.mp3";
