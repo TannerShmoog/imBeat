@@ -66,18 +66,19 @@ public class DirectoriesActivity extends AbstractMediaPlayerActivity {
     }
 
     //TODO: checkbox button on list items, clicking on list item opens that directory in a file viewer, no result
-
+    //TODO: if a directory is enabled/disabled call buildEffectiveQueue()
     @Override
     //After selecting a directory get the result as a URI path and make a Directory object from it
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch(requestCode) {
             case 9999:
                 try {
-                    String result = data.getData().toString();
+                    Uri result = data.getData();
                     Directory newDirectory = new Directory(result, true);
                     addDirectoryList(newDirectory);
                     saveVars();
                     populateListView();
+                    buildEffectiveQueue();
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
@@ -103,6 +104,7 @@ public class DirectoriesActivity extends AbstractMediaPlayerActivity {
                         int position = listView.getPositionForView(view);
                         deleteDirectoryList(position);
                         populateListView();
+                        buildEffectiveQueue();
                     }})
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                     @Override

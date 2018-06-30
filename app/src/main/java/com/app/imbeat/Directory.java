@@ -1,5 +1,7 @@
 package com.app.imbeat;
 
+import android.net.Uri;
+
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 
@@ -10,15 +12,12 @@ public class Directory implements Serializable {
     private Boolean isEnabled;
 
     //Stores one user specified storage directory to pull music files from
-    public Directory(String uriPath, Boolean isEnabled) {
-        this.uriPath = uriPath;
-        String[] templist = uriPath.split("/");
-        try {
-            this.readableName = java.net.URLDecoder.decode(templist[templist.length - 1], "UTF-8");
-        } catch(UnsupportedEncodingException e) {
-            e.printStackTrace();
-            this.readableName = "aaaaaa";//templist[templist.length - 1];
-        }
+    public Directory(Uri uriPath, Boolean isEnabled) {
+        this.uriPath = uriPath.toString();
+
+        String[] templist = uriPath.getPath().split(":");
+        this.readableName = "/"+templist[templist.length - 1];
+
         this.isEnabled = isEnabled;
     }
 

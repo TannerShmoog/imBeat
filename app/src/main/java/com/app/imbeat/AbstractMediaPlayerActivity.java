@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,6 +13,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,7 +26,8 @@ public abstract class AbstractMediaPlayerActivity extends AppCompatActivity{
     private static ArrayList<Directory> directoryList = new ArrayList<Directory>();
     private static ArrayList<AudioFile> queueList = new ArrayList<>();
     private static ArrayList<AudioFile> historyList = new ArrayList<>();
-    private static ArrayList<AudioFile> effectiveQueueList;
+    private static ArrayList<AudioFile> effectiveQueueList = new ArrayList<>();
+    private static ArrayList<AudioFile> totalAudioPool = new ArrayList<>();
     private AudioFile nowPlaying;
     private AudioFile upNext;
     private AudioFile previous;
@@ -155,5 +158,24 @@ public abstract class AbstractMediaPlayerActivity extends AppCompatActivity{
         }
         cursor.close();
     }
+
+    //Shuffle songs from all selected directories
+    public void buildEffectiveQueue() {
+        for(Directory directory : directoryList) {
+            File file = new File(Environment.getExternalStorageDirectory()+directory.getReadableName());
+            File[] files = file.listFiles();
+            for(File ifile : files) {
+                String filename = ifile.getName();
+                if(filename.substring(filename.length()-4, filename.length()).toLowerCase().equals(".mp3")) {
+                    //TODO: make a new AudioFile object and add it to the pool
+                } else if(filename.substring(filename.length()-4, filename.length()).toLowerCase().equals(".mp4")) {
+                    //TODO: make a new AudioFile object and add it to the pool
+                }
+            }
+        }
+        //TODO: Shuffle the total pool, add queue to the front of the list and append the shuffled list
+    }
+
+
 
 }

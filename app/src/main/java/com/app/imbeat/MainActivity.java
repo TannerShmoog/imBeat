@@ -52,6 +52,7 @@ public class MainActivity extends AbstractMediaPlayerActivity implements Navigat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         loadVars();
+        buildEffectiveQueue();
 
         seekBar = findViewById(R.id.seekBar);
         textView = findViewById(R.id.textView2);
@@ -95,6 +96,7 @@ public class MainActivity extends AbstractMediaPlayerActivity implements Navigat
                 loadAudio();
                 //play the first audio in the ArrayList
                playAudio("a");
+
             }
         });
 

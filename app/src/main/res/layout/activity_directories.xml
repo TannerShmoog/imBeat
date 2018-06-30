@@ -15,6 +15,7 @@
         android:drawableLeft="@drawable/ic_add"
         android:text="Add New Directories"
         android:textAlignment="viewStart"
+        android:textColor="@color/lightest_grey"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
